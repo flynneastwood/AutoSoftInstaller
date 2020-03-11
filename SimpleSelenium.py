@@ -3,11 +3,24 @@ from selenium.webdriver.common.keys import Keys
 
 
 driver = webdriver.Chrome('./chromedriver')
-driver.get("https://krita.org/fr/telechargement/krita-desktop/")
 
-elem = driver.find_element_by_id('sixty-four-bit-windows-installer').click()
+def minds():
+    driver.get("https://www.minds.com/")
 
+    usernameElem  = driver.find_element_by_link_text('Login').click()
+    usernameElem  = driver.find_element_by_id('username')
+    username = input('What is your username?')
+    usernameElem.send_keys(username)
 
-print(elem)
+    passwordElem  = driver.find_element_by_id('password')
+    password = input('What is your password?')
+    passwordElem.send_keys("password", Keys.RETURN)
+
+    driver.implicitly_wait(5)
+    postElem = driver.find_element_by_xpath('/html/body/m-app/m-page/m-body/m-newsfeed/div[2]/div[2]/m-newsfeed--subscribed/minds-newsfeed-poster/div/div/form/m-text-input--autocomplete-container/textarea')
+    postElem.send_keys("Salut les potes!")
+
+minds()
 
 #driver.close()
+

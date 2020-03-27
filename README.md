@@ -1,2 +1,6 @@
-# AutoSoftInstaller
-Uses Selenium to download and install multiple softwares at once.
+# LazyPost
+
+A tool to upload content on alternative social platforms.
+
+
+

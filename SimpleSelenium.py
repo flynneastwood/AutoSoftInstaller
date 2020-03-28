@@ -19,7 +19,6 @@ def main():
 
     def minds():
         contents = readPost()
-        image = open("imgs/Image01.png", "r")
 
         driver.get("https://www.minds.com/")
 
@@ -28,7 +27,7 @@ def main():
         usernameElem = driver.find_element_by_link_text('Login').click()
         usernameElem = driver.find_element_by_id('username')
         username = input('What is your username?')
-        usernameElem.send_keys(username)
+        usernameElem.send_keys(username, Keys.RETURN)
 
         #Password input.
 

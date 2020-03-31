@@ -12,10 +12,10 @@ import googleapiclient.discovery
 import googleapiclient.errors
 
 from googleapiclient.http import MediaFileUpload
+from ParsePost import getTitle, getBody, getHashtags
+
 
 scopes = ["https://www.googleapis.com/auth/youtube.upload"]
-
-video_desc = 
 
 def main():
     # Disable OAuthlib's HTTPS verification when running locally.
@@ -38,9 +38,9 @@ def main():
         body={
           "snippet": {
             "categoryId": "1",
-            "description": "My first automated upload.",
-            "tags": ["blender", "art", '3D'],
-            "title": "Test video upload."
+            "description":getBody(),
+            "tags": getHashtags(),
+            "title": getTitle()
           },
           "status": {
             "privacyStatus": "private",

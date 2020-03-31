@@ -1,7 +1,7 @@
 import os
 from bs4 import BeautifulSoup
 
-post = open("Post.html", "r")  
+post = open("Post.html", "r") # Path to HTML file used to get post title, body text and hashtags.
 
 soup = BeautifulSoup(post, 'html.parser')
 

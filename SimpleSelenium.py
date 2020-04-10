@@ -116,6 +116,8 @@ def main():
 
     def dTube():
         
+        global keyErrorElem
+
         wait = WebDriverWait(driver, 10)
 
         driver.get("https://d.tube/")
@@ -175,7 +177,7 @@ def main():
                 print("Success!")
                 LoginSuccess = True
                 
-                continue
+                
 
 
         print("Success!")

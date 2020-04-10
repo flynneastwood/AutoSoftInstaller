@@ -6,8 +6,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.expected_conditions import presence_of_element_located
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
-from ParsePost import getTitle, getBody, getHashtags
+from ParsePost import getTitle, getBody, getHashtags, getVideoDesc
 from YoutubeUploader import main
 
 
@@ -21,6 +22,7 @@ with open('ids.json', 'r') as json_file:     #get credentials from json
 title = getTitle()
 body = getBody()
 tags = getHashtags()
+videoDesc = getVideoDesc()
 
 def main():
 
@@ -128,26 +130,61 @@ def main():
             ))).click()
         driver.implicitly_wait(5)
 
+
         passwordElem = wait.until(EC.visibility_of_element_located((By.XPATH,           #Input password
             "/html/body/div/body/div[5]/div/main/div/div/form/div/div/div[2]/div/input"
-            ))).send_keys(data['dtube']['password'])
-        driver.implicitly_wait(5)
+            )))
+        for character in (data['dtube']['password']):       #Used to slowdown typing, preventing blocks from bots.
+            passwordElem.send_keys(character)
+            driver.implicitly_wait(5)
+
+
        
         usernameElem = wait.until(EC.visibility_of_element_located((By.XPATH,           #Input username
             "/html/body/div/body/div[5]/div/main/div/div/form/div/div/div[1]/div/input"
             ))).send_keys(data['dtube']['username'])
 
-        driver.implicitly_wait(5)
+
 
         submitElem = driver.find_element_by_xpath(                                      #Submit information
             "/html/body/div/body/div[5]/div/main/div/div/form/div/div/div[4]/button"
-            ).send_keys(Keys.RETURN)
+            )
 
 
-        UploadBtnElem = wait.until(EC.visibility_of_element_located((By.CLASS_NAME,     #Get the "upload a video" button
-            "ui item"
+        submitElem.submit()
+
+        try:
+
+            keyErrorElem = wait.until(EC.visibility_of_element_located((By.XPATH,           #Check if login failed
+                "/html/body/div[1]/body/div[6]/div/div[2]"
+                )))
+        except TimeoutException:
+            print("lol")
+
+
+        #Loop the login process until access
+        LoginSuccess = False
+
+        while LoginSuccess == False:    
+            if keyErrorElem:
+                print('Trying again')
+                dTube()
+                                                    
+                
+            else:       
+                print("Success!")
+                LoginSuccess = True
+                
+                continue
+
+
+        print("Success!")
+        UploadBtnElem = wait.until(EC.visibility_of_element_located((By.XPATH,     #Get the "upload a video" button
+            "/html/body/div/body/div[2]/div/nav[1]/a[3]"
             ))).click()
-       
+      
+        
+        """
         srcElem = driver.find_element_by_xpath(                                         #Select from youtube link
             "/html/body/div[1]/body/div[5]/div/main/div/div/div[1]/div[2]/div/input"
             ).click()
@@ -160,8 +197,7 @@ def main():
             "/html/body/div[1]/body/div[5]/div/main/div/div/div[1]/div/input"
             ).send_keys("a youtube url")
 
-
-
+        """
 
         pass
 
@@ -177,6 +213,8 @@ def main():
 
 
     dTube()
+    
+
     #driver.close()
 if __name__== "__main__":
   main()

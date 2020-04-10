@@ -20,4 +20,7 @@ def getHashtags():
 
 	return hashtags
 
-getHashtags()
+def getVideoDesc():
+	videoDesc = str(soup.p).strip("</p>")
+	return videoDesc
+

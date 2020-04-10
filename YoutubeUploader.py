@@ -49,7 +49,7 @@ def main():
           }
         },
         
-        media_body=MediaFileUpload("C:/Users/MUXMO P03/Documents/GitHub/LazyPost/testvideo.mp4")  #Path to the video to upload.
+        media_body=MediaFileUpload("C:/Users/MUXMO P03/Documents/GitHub/LazyPost/Day02.mp4")  #Path to the video to upload.
     )
     response = request.execute()
 

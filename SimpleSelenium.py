@@ -120,88 +120,96 @@ def main():
 
         wait = WebDriverWait(driver, 10)
 
-        driver.get("https://d.tube/")
+        def dTube_upload():
 
-        driver.implicitly_wait(7) #Wait to load the page properly
+            print("Logged In!")
+            UploadBtnElem = wait.until(EC.visibility_of_element_located((By.XPATH,     #Get the "upload a video" button
+                "/html/body/div/body/div[2]/div/nav[1]/a[3]"
+                ))).click()
+          
+            
+            
+            srcElem = driver.find_element_by_xpath(                                         #Select from youtube link
+                "/html/body/div[1]/body/div[5]/div/main/div/div/div[1]/div[2]/div/input"
+                ).click()
 
-        loginElem = wait.until(EC.visibility_of_element_located((By.XPATH,              #Find and click the login button
-            "/html/body/div/body/div[1]/div[2]/div[3]/a/div"
-            ))).click()
-        avalonElem = wait.until(EC.visibility_of_element_located((By.XPATH,             #Select the Dtube authentification
-            "/html/body/div/body/div[5]/div/main/div/div[3]"
-            ))).click()
-        driver.implicitly_wait(5)
+
+            nextElem = driver.find_element_by_xpath(
+                "/html/body/div[1]/body/div[5]/div/main/div/div/div[2]/button/div"          #Hit next button
+                ).click()
+
+            VideoLinkElem = driver.find_element_by_xpath(                                   #Get link to URL and paste in the youtube link
+                "/html/body/div[1]/body/div[5]/div/main/div/div/div[1]/div/input"
+                ).send_keys("a youtube url")
+
+            
+
+            pass
+
+        def loginDtube():
 
 
-        passwordElem = wait.until(EC.visibility_of_element_located((By.XPATH,           #Input password
-            "/html/body/div/body/div[5]/div/main/div/div/form/div/div/div[2]/div/input"
-            )))
-        for character in (data['dtube']['password']):       #Used to slowdown typing, preventing blocks from bots.
-            passwordElem.send_keys(character)
+            driver.get("https://d.tube/")
+
+            driver.implicitly_wait(7) #Wait to load the page properly
+
+            loginElem = wait.until(EC.visibility_of_element_located((By.XPATH,              #Find and click the login button
+                "/html/body/div/body/div[1]/div[2]/div[3]/a/div"
+                ))).click()
+            avalonElem = wait.until(EC.visibility_of_element_located((By.XPATH,             #Select the Dtube authentification
+                "/html/body/div/body/div[5]/div/main/div/div[3]"
+                ))).click()
             driver.implicitly_wait(5)
 
 
-       
-        usernameElem = wait.until(EC.visibility_of_element_located((By.XPATH,           #Input username
-            "/html/body/div/body/div[5]/div/main/div/div/form/div/div/div[1]/div/input"
-            ))).send_keys(data['dtube']['username'])
+            passwordElem = wait.until(EC.visibility_of_element_located((By.XPATH,           #Input password
+                "/html/body/div/body/div[5]/div/main/div/div/form/div/div/div[2]/div/input"
+                )))
+            for character in (data['dtube']['password']):       #Used to slowdown typing, preventing blocks from bots.
+                passwordElem.send_keys(character)
+
+
+           
+            usernameElem = wait.until(EC.visibility_of_element_located((By.XPATH,           #Input username
+                "/html/body/div/body/div[5]/div/main/div/div/form/div/div/div[1]/div/input"
+                ))).send_keys(data['dtube']['username'])
 
 
 
-        submitElem = driver.find_element_by_xpath(                                      #Submit information
-            "/html/body/div/body/div[5]/div/main/div/div/form/div/div/div[4]/button"
-            )
+            submitElem = driver.find_element_by_xpath(                                      #Submit information
+                "/html/body/div/body/div[5]/div/main/div/div/form/div/div/div[4]/button"
+                )
 
 
-        submitElem.submit()
+            submitElem.submit()
+
+        loginDtube()
+
 
         try:
-
+            LoginSuccess = False
             keyErrorElem = wait.until(EC.visibility_of_element_located((By.XPATH,           #Check if login failed
                 "/html/body/div[1]/body/div[6]/div/div[2]"
                 )))
         except TimeoutException:
-            print("lol")
+            dTube_upload()
+            LoginSuccess = True
 
 
         #Loop the login process until access
-        LoginSuccess = False
+        
 
         while LoginSuccess == False:    
             if keyErrorElem:
                 print('Trying again')
-                dTube()
+                loginDtube()
                                                     
                 
-            else:       
+            else:
+                     
                 print("Success!")
                 LoginSuccess = True
                 
-                
-
-
-        print("Success!")
-        UploadBtnElem = wait.until(EC.visibility_of_element_located((By.XPATH,     #Get the "upload a video" button
-            "/html/body/div/body/div[2]/div/nav[1]/a[3]"
-            ))).click()
-      
-        
-        """
-        srcElem = driver.find_element_by_xpath(                                         #Select from youtube link
-            "/html/body/div[1]/body/div[5]/div/main/div/div/div[1]/div[2]/div/input"
-            ).click()
-
-        nextElem = driver.find_element_by_xpath(
-            "/html/body/div[1]/body/div[5]/div/main/div/div/div[2]/button/div"          #Hit next button
-            ).click()
-
-        VideoLinkElem = driver.find_element_by_xpath(                                   #Get link to URL and paste in the youtube link
-            "/html/body/div[1]/body/div[5]/div/main/div/div/div[1]/div/input"
-            ).send_keys("a youtube url")
-
-        """
-
-        pass
 
     def bitchute():
         pass

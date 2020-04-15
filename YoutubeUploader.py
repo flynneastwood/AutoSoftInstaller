@@ -12,10 +12,13 @@ import googleapiclient.discovery
 import googleapiclient.errors
 
 from googleapiclient.http import MediaFileUpload
-from ParsePost import getTitle, getBody, getHashtags
+from ParsePost import getTitle, getBody, getHashtags, getVideoDesc
 
 
 scopes = ["https://www.googleapis.com/auth/youtube.upload"]
+
+videoMedia = './testVidUpload.mp4'
+thumbnail = './thumbnail.jpg'
 
 def main():
     # Disable OAuthlib's HTTPS verification when running locally.
@@ -24,7 +27,7 @@ def main():
 
     api_service_name = "youtube"
     api_version = "v3"
-    client_secrets_file = "C:/Users/MUXMO P03/Documents/GitHub/LazyPost/code_secret_client_340838595868-52kvrrdcuqh2n88tdjr1g3rnpigdumfk.apps.googleusercontent.com.json"
+    client_secrets_file = "./code_secret_client_340838595868-52kvrrdcuqh2n88tdjr1g3rnpigdumfk.apps.googleusercontent.com.json"
 
     # Get credentials and create an API client
     flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
@@ -38,9 +41,10 @@ def main():
         body={
           "snippet": {
             "categoryId": "1",
-            "description":getBody(),
+            "description":getVideoDesc(),
             "tags": getHashtags(),
-            "title": getTitle()
+            "title": getTitle(),
+            "thumbnails": thumbnail
           },
           "status": {
             "privacyStatus": "private",
@@ -49,7 +53,7 @@ def main():
           }
         },
         
-        media_body=MediaFileUpload("C:/Users/MUXMO P03/Documents/GitHub/LazyPost/Day02.mp4")  #Path to the video to upload.
+        media_body=MediaFileUpload(videoMedia)  #Path to the video to upload.
     )
     response = request.execute()
 

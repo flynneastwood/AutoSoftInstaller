@@ -24,6 +24,15 @@ body = getBody()
 tags = getHashtags()
 videoDesc = getVideoDesc()
 
+videoUrl = 'https://www.youtube.com/'
+
+videoMediaList =[]
+videoPath = open('./testVidUpload.mp4', 'rb')
+
+videoMediaList.append(str(videoPath))
+
+thumbnail = './thumbnail.jpg'
+
 def main():
 
 
@@ -212,7 +221,63 @@ def main():
                 
 
     def bitchute():
-        pass
+        def loginBitchute():
+            driver.get("https://www.bitchute.com/")
+
+            wait = WebDriverWait(driver, 10)
+
+            driver.implicitly_wait(7) #Wait to load the page properly
+
+            loginElem = wait.until(EC.visibility_of_element_located((By.XPATH,              #Find and click the login button
+                "/html/body/nav/div[1]/div[2]/div[4]/span/a[1]"
+                ))).click()
+
+            usernameElem = wait.until(EC.visibility_of_element_located((By.XPATH,           #Input username
+                "/html/body/div[1]/div/div/div[2]/div/div[1]/form/div[2]/input"
+                ))).send_keys(data['bitchute']['username'])
+
+            passwordElem = wait.until(EC.visibility_of_element_located((By.XPATH,           #Input username
+                "/html/body/div[1]/div/div/div[2]/div/div[1]/form/div[3]/input"
+                ))).send_keys(data['bitchute']['password'])
+
+            submitElem = driver.find_element_by_xpath(                                      #Submit information
+                "/html/body/div[1]/div/div/div[3]/button[1]"
+                ).click()
+
+
+        def uploadBitchute():
+
+            print("Logged In!")
+
+            wait = WebDriverWait(driver, 10)
+
+            try:
+
+                UploadBtnElem = wait.until(EC.visibility_of_element_located((By.XPATH,     #Get the "upload a video" button
+                "/html/body/nav/div[1]/div[2]/div[4]/a"
+                    ))).click()
+
+            except TimeoutException:
+                print('Not found')
+
+            videoTitleElem = driver.find_element_by_xpath(                                       
+            "/html/body/div/div/div/form/div[1]/textarea"         
+            ).send_keys(title)
+
+            videoDescElem = wait.until(EC.visibility_of_element_located((By.XPATH, 
+            "/html/body/div/div/div/form/div[2]/textarea"
+            ))).send_keys(videoDesc)
+
+            uploadVideoElem = wait.until(EC.visibility_of_element_located((By.ID, 
+            "video_upload"
+            ))).send_keys("C:/Users/Tony Laptop/Documents/GitHub/LazyPost/testVidUpload.mp4")
+
+            uploadThumbnailElem = wait.until(EC.visibility_of_element_located((By.ID, 
+            "cover_upload"
+            ))).send_keys("C:/Users/Tony Laptop/Documents/GitHub/LazyPost/thumbnail.jpg")
+
+        loginBitchute()
+        uploadBitchute()
 
     def lbry():
         pass
@@ -222,7 +287,7 @@ def main():
 
 
 
-    dTube()
+    bitchute()
     
 
     #driver.close()

@@ -2,8 +2,6 @@ from tkinter import *
 
 #Fenetres
 window = Tk()
-def spawnWindow():
-	window = Tk()
 
 #Body
 window.title("LazyPost Minds.com")
@@ -21,20 +19,24 @@ lbl.grid(column=2, row=0)
 
 def clickedMinds():
 
-	minds()
+	print('Executing Minds!')
 
 def clickedSteemit():
 
-	Steemit()
+		print('Executing Steemit!')
+
 def clickedBitchute():
 
-	bitchute()
+		print('Executing Bitchute!')
+
 def clickedLBRY():
 
-	lbry()
+		print('Executing LBRY!')
+
 def clickedDtube():
 
-	dtube()
+		print('Executing Dtube!')
+
 
 
 

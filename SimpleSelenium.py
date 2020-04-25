@@ -1,4 +1,6 @@
 import json
+import pyautogui
+import os
 
 from tkinter import *
 from selenium import webdriver
@@ -280,10 +282,68 @@ def main():
         uploadBitchute()
 
     def lbry():
-        pass
+        
+        def loginLbry():
+            driver.get("https://lbry.tv/")
+
+            wait = WebDriverWait(driver, 10)
+
+            driver.implicitly_wait(7) #Wait to load the page properly
+
+            loginElem = wait.until(EC.visibility_of_element_located((By.XPATH,              #Find and click the login button
+                "/html/body/div/div/header/div/div[2]/div/a[1]/span/span"
+                ))).click()
+
+            usernameElem = wait.until(EC.visibility_of_element_located((By.XPATH,           #Input username
+                "/html/body/div/div/div[1]/main/section/div/div/section/div[2]/div/form/fieldset-section/input"
+                ))).send_keys(data['lbry']['username'], Keys.RETURN)
+
+            passwordElem = wait.until(EC.visibility_of_element_located((By.XPATH,           #Input username
+                "/html/body/div/div/div[1]/main/section/div/div/section/div[2]/form/fieldset-section/input"
+                ))).send_keys(data['lbry']['password'], Keys.RETURN)
+
+        def uploadLbry():
+
+            wait = WebDriverWait(driver, 10)
+
+            driver.implicitly_wait(7) #Wait to load the page properly
+
+            uploadBar = wait.until(EC.visibility_of_element_located((By.XPATH,              #Find the top bar
+                "/html/body/div/div/header/div/div[2]/button[1]"
+                ))).click()
+            publishElem = wait.until(EC.visibility_of_element_located((By.XPATH,              #Click login Button
+                "/html/body/reach-portal/div/div/div[1]"
+                ))).click()
+
+
+            mediaBarElem = wait.until(EC.visibility_of_element_located((By.XPATH,              #Upload the file
+                "/html/body/div/div/div[1]/main/div/section[1]/div[2]/fieldset-section/input-submit/button"
+                ))).click()
+
+            pyautogui.FAILSAFE = True
+
+            pyautogui.PAUSE = 0.5
+
+            #get the directory bar and release keys
+            pyautogui.keyDown("altleft")
+            pyautogui.keyDown("d")
+            pyautogui.keyUp("altleft")
+            pyautogui.keyUp("d")
+
+            #Write path and go to directory
+            pyautogui.write('C:/Users/Tony Laptop/Documents/GitHub/LazyPost/')
+            pyautogui.press('enter')
+
+            pyautogui.write('testVidUpload.mp4')
+            pyautogui.press('enter')
+            #pyautogui.prompt('This lets the user type in a string and press OK.')
+
+        loginLbry()
+        uploadLbry()
 
     def youtube():
         pass
+
 
     def gui():
 
@@ -336,7 +396,7 @@ def main():
 
         window.mainloop()
     
-    gui()
+    lbry()
     #driver.close()
 if __name__== "__main__":
   main()

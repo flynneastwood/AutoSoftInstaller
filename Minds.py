@@ -12,24 +12,20 @@ from selenium.common.exceptions import TimeoutException
 from ParsePost import getTitle, getBody, getHashtags, getVideoDesc
 
 
+options = webdriver.ChromeOptions()
+options.binary_location = "/opt/brave.com/brave-browser"
+#driver_path = '/home/tony/LazyPost/chromedriver'
 driver = webdriver.Chrome('./chromedriver')
 
 with open('ids.json', 'r') as json_file:     #get credentials from json
     data = json.load(json_file)
 
 #Pour utiliser Brave.
-#driver = webdriver.Chrome(executable_path ='C:/Program Files (x86)/BraveSoftware/Brave-Browser/Application/brave.exe')
+#driver = webdriver.Chrome(executable_path ='/opt/brave.com/brave/brave-browser')
 title = getTitle()
 body = getBody()
 tags = getHashtags()
 videoDesc = getVideoDesc()
-
-videoUrl = 'https://www.youtube.com/'
-
-videoMediaList =[]
-videoPath = open('./testVidUpload.mp4', 'rb')
-
-videoMediaList.append(str(videoPath))
 
 thumbnail = './thumbnail.jpg'
 
@@ -49,7 +45,7 @@ def minds():
 
 
     # Get text box and add post.txt
-    postElem = driver.find_element_by_xpath(
+    postElem = driver.find_element_by_xpath(    
         '/html/body/m-app/m-page/m-body/m-newsfeed'
         '/div[2]/div[2]/m-newsfeed--subscribed/minds-newsfeed-poster'
          '/div/div/form/m-text-input--autocomplete-container/textarea'

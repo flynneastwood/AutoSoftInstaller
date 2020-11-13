@@ -13,8 +13,8 @@ from ParsePost import getTitle, getBody, getHashtags, getVideoDesc
 
 
 options = webdriver.ChromeOptions()
-options.binary_location = "/opt/brave.com/brave-browser"
-#driver_path = '/home/tony/LazyPost/chromedriver'
+options.binary_location = "/usr/bin/brave-browser"
+driver_path = '/usr/bin/brave-browser'
 driver = webdriver.Chrome('./chromedriver')
 
 with open('ids.json', 'r') as json_file:     #get credentials from json
@@ -28,6 +28,7 @@ tags = getHashtags()
 videoDesc = getVideoDesc()
 
 thumbnail = './thumbnail.jpg'
+
 
 def minds():
 
@@ -70,6 +71,8 @@ def minds():
     #Submit button
     #driver.find_element_by_xpath('/html/body/m-app/m-page/m-body/m-newsfeed/div[2]/div[2]/m-newsfeed--subscribed/minds-newsfeed-poster/div/div/form/div/button').click()
 
-driver.close()
+#driver.close()
+
+minds()
 
 

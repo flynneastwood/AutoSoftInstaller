@@ -9,7 +9,7 @@ from selenium.webdriver.support.expected_conditions import presence_of_element_l
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
-from ParsePost import getTitle, getBody, getHashtags, getVideoDesc
+from ParsePost import getTitle, getBody, getMindsTags, getMindsBody
 
 
 options = webdriver.ChromeOptions()
@@ -22,8 +22,8 @@ with open('ids.json', 'r') as json_file:     #get credentials from json
 
 title = getTitle()
 body = getBody()
-tags = getHashtags()
-videoDesc = getVideoDesc()
+tags = getMindsTags()
+mindsBody = getMindsBody()
 
 thumbnail = './thumbnail.jpg'
 
@@ -50,23 +50,47 @@ def minds():
 
     postElem.click()
 
-    postBody = driver.find_element_by_xpath(    
-        "/html/body/m-app/m-page/m-overlay-modal/div/div[2]/m-composer__modal/m-composer__base/div/div/div/m-composer__textarea/div/m-text-input--autocomplete-container/textarea"
+
+
+    postImage = driver.find_element_by_xpath(    
+        "/html/body/m-app/m-page/m-overlay-modal/div/div[2]/m-composer__modal/m-composer__base/div/div/m-composer__toolbar/div/m-file-upload/label/form/input"
         )
 
-    postBody.click()
+    postImage.send_keys("/home/tony/LazyPost/16_Forest.jpg")
+
+    postTitle = driver.find_element_by_xpath(    
+        "/html/body/m-app/m-page/m-overlay-modal/div/div[2]/m-composer__modal/m-composer__base/div/div/div/m-composer__textarea/div/div/div"
+        ).click()
     
-    postBody.send_keys(title)
+    print(postTitle)
+    #postTitle.send_keys(title)
 
-    postBody.send_keys(Keys.RETURN) #Jump a line in blog text
+   
 
-    postBody.send_keys(body)
 
-    postBody.send_keys(Keys.RETURN) #Jump a line in blog text
+    #postBody = driver.find_element_by_xpath(    
+    #    "/html/body/m-app/m-page/m-overlay-modal/div/div[2]/m-composer__modal/m-composer__base/div/div/div/m-composer__textarea/div/m-text-input--autocomplete-container/textarea"
+    #    )
 
-    postBody.send_keys(tags)
+    #postBody.click()
 
-    postBody.send_keys(Keys.RETURN)
+
+    
+    #postBody.send_keys(title)
+
+    #postBody.send_keys(Keys.RETURN) #Jump a line in blog text
+
+    #postBody.send_keys(body)
+
+    #postBody.send_keys(Keys.RETURN) #Jump a line in blog text
+
+    #postBody.send_keys(mindsBody)
+
+    #postBody.send_keys(Keys.RETURN) #Jump a line in blog text
+
+    #postBody.send_keys(tags)
+
+    #postBody.send_keys(Keys.RETURN)
         
 
 

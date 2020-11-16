@@ -13,15 +13,20 @@ def getBody():
 	body = str(soup.body).strip("</body>")
 	return body
 
-def getHashtags():
+def getMindsTags():
 	#Get the text in HTML and split words into a list.
 	textLine = str(soup.h1).strip("</h1>")   
-	hashtags = list(textLine.split())
+	hashtags = list(textLine.split("!"))
 
 	return hashtags
+
+
+def getMindsBody():
+	mindsBody = str(soup.p).strip("</p>")
+	return mindsBody
 
 def getVideoDesc():
 	videoDesc = str(soup.p).strip("</p>")
 	return videoDesc
 
-
+print(getMindsBody())

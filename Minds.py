@@ -20,8 +20,6 @@ driver = webdriver.Chrome('./chromedriver')
 with open('ids.json', 'r') as json_file:     #get credentials from json
     data = json.load(json_file)
 
-#Pour utiliser Brave.
-#driver = webdriver.Chrome(executable_path ='/opt/brave.com/brave/brave-browser')
 title = getTitle()
 body = getBody()
 tags = getHashtags()
@@ -47,26 +45,32 @@ def minds():
 
     # Get text box and add post.txt
     postElem = driver.find_element_by_xpath(    
-        '/html/body/m-app/m-page/m-body/m-newsfeed'
-        '/div[2]/div[2]/m-newsfeed--subscribed/minds-newsfeed-poster'
-         '/div/div/form/m-text-input--autocomplete-container/textarea'
+        "/html/body/m-app/m-page/m-body/div/div/m-newsfeed/div/div[1]/m-newsfeed--subscribed/m-composer/div/div"
         )
 
-    postElem.send_keys(title)
+    postElem.click()
 
-    postElem.send_keys(Keys.RETURN) #Jump a line in blog text
+    postBody = driver.find_element_by_xpath(    
+        "/html/body/m-app/m-page/m-overlay-modal/div/div[2]/m-composer__modal/m-composer__base/div/div/div/m-composer__textarea/div/m-text-input--autocomplete-container/textarea"
+        )
 
-    postElem.send_keys(body)
+    postBody.click()
+    
+    postBody.send_keys(title)
 
-    postElem.send_keys(Keys.RETURN) #Jump a line in blog text
+    postBody.send_keys(Keys.RETURN) #Jump a line in blog text
 
-    postElem.send_keys(tags)
+    postBody.send_keys(body)
 
-    postElem.send_keys(Keys.RETURN)
+    postBody.send_keys(Keys.RETURN) #Jump a line in blog text
+
+    postBody.send_keys(tags)
+
+    postBody.send_keys(Keys.RETURN)
         
 
 
-    driver.implicitly_wait(5)
+    #driver.implicitly_wait(5)
 
     #Submit button
     #driver.find_element_by_xpath('/html/body/m-app/m-page/m-body/m-newsfeed/div[2]/div[2]/m-newsfeed--subscribed/minds-newsfeed-poster/div/div/form/div/button').click()

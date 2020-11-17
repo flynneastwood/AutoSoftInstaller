@@ -9,8 +9,6 @@ from selenium.webdriver.support.expected_conditions import presence_of_element_l
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
-from ParsePost import getTitle, getBody, getMindsTags, getMindsBody
-
 options = webdriver.ChromeOptions()
 options.binary_location = "/usr/bin/brave-browser"
 driver_path = '/usr/bin/brave-browser'
@@ -26,7 +24,7 @@ tags = (content['minds']['tags'])
 body = (content['GENERAL']['body'])
 mindsBody = (content['minds']['body'])
 
-thumbnail = './thumbnail.jpg'
+thumbnail = '/home/tony/LazyPost/content/16_Forest.jpg'
 
 
 def minds():
@@ -57,15 +55,17 @@ def minds():
         "/html/body/m-app/m-page/m-overlay-modal/div/div[2]/m-composer__modal/m-composer__base/div/div/m-composer__toolbar/div/m-file-upload/label/form/input"
         )
 
-    postImage.send_keys("/home/tony/LazyPost/16_Forest.jpg")
+    postImage.send_keys(thumbnail)
 
-    postTitle = driver.find_element_by_xpath(    
-        "/html/body/m-app/m-page/m-overlay-modal/div/div[2]/m-composer__modal/m-composer__base/div/div/div/m-composer__textarea/div/div/div"
-        ).click()
+    ##TITLE GOES HERE##
+
+    #postTitle = driver.find_element_by_xpath(    
+    #   "/html/body/m-app/m-page/m-overlay-modal/div/div[2]/m-composer__modal/m-composer__base/div/div/div/m-composer__textarea/div/div/div"
+    #   ).click()
     
     
-    print(postTitle)
-    postTitle.send_keys(title) 
+    #print(postTitle)
+    #postTitle.send_keys(title) 
 
 
     postBody = driver.find_element_by_xpath(    
@@ -75,19 +75,19 @@ def minds():
     postBody.click()
 
     
-    postBody.send_keys(title)
+    postBody.send_keys(title + " - Blender3D")
 
     postBody.send_keys(Keys.RETURN) #Jump a line in blog text
 
-    #postBody.send_keys(body)
+    postBody.send_keys(body)
 
-    #postBody.send_keys(Keys.RETURN) #Jump a line in blog text
+    postBody.send_keys(Keys.RETURN) #Jump a line in blog text
 
-    #postBody.send_keys(body)
+    postBody.send_keys(mindsBody)
 
-    #postBody.send_keys(Keys.RETURN) #Jump a line in blog text
+    postBody.send_keys(Keys.RETURN) #Jump a line in blog text
 
-    #postBody.send_keys(tags)
+    postBody.send_keys(tags)
 
     #postBody.send_keys(Keys.RETURN)
         

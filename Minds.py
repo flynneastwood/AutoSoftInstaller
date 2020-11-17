@@ -61,23 +61,21 @@ def minds():
         "/html/body/m-app/m-page/m-overlay-modal/div/div[2]/m-composer__modal/m-composer__base/div/div/div/m-composer__textarea/div/div/div"
         ).click()
     
+    
     print(postTitle)
     postTitle.send_keys(title) 
 
-   
 
+    postBody = driver.find_element_by_xpath(    
+        "/html/body/m-app/m-page/m-overlay-modal/div/div[2]/m-composer__modal/m-composer__base/div/div/div/m-composer__textarea/div/m-text-input--autocomplete-container/textarea"
+        )
 
-    #postBody = driver.find_element_by_xpath(    
-    #    "/html/body/m-app/m-page/m-overlay-modal/div/div[2]/m-composer__modal/m-composer__base/div/div/div/m-composer__textarea/div/m-text-input--autocomplete-container/textarea"
-    #    )
-
-    #postBody.click()
-
+    postBody.click()
 
     
-    #postBody.send_keys(title)
+    postBody.send_keys(title)
 
-    #postBody.send_keys(Keys.RETURN) #Jump a line in blog text
+    postBody.send_keys(Keys.RETURN) #Jump a line in blog text
 
     #postBody.send_keys(body)
 

@@ -161,8 +161,10 @@ def main():
 
 
             driver.get("https://d.tube/")
+with open('postContent.json', 'r') as json_file:     #get credentials from json
 
-            driver.implicitly_wait(7) #Wait to load the page properly
+            driver.implicitly_wait(7) #Wait to load the page properlywith open('postContent.json', 'r') as json_file:     #get credentials from json
+
 
             loginElem = wait.until(EC.visibility_of_element_located((By.XPATH,              #Find and click the login button
                 "/html/body/div/body/div[1]/div[2]/div[3]/a/div"

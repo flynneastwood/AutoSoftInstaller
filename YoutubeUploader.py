@@ -6,19 +6,22 @@
 #    https://developers.google.com/api-client-library/python/guide/media_upload
 
 import os
+import json
 
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
 
 from googleapiclient.http import MediaFileUpload
-from ParsePost import getTitle, getBody, getHashtags, getVideoDesc
 
 
 scopes = ["https://www.googleapis.com/auth/youtube.upload"]
 
 videoMedia = './testVidUpload.mp4'
-thumbnail = './thumbnail.jpg'
+thumbnail = './16_Forest.jpg'
+
+with open('postContent.json', 'r') as json_file:     #get credentials from json
+    data = json.load(json_file)
 
 def main():
     # Disable OAuthlib's HTTPS verification when running locally.
@@ -41,10 +44,10 @@ def main():
         body={
           "snippet": {
             "categoryId": "1",
-            "description":getVideoDesc(),
-            "tags": getHashtags(),
-            "title": getTitle(),
-            "thumbnails": thumbnail
+            "description":(data['Youtube']['body']),
+            "tags": (data['Youtube']['tags']),
+            "title":(data['GENERAL']['title'])
+            #"thumbnails": thumbnail
           },
           "status": {
             "privacyStatus": "private",

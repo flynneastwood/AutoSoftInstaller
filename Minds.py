@@ -11,7 +11,6 @@ from selenium.common.exceptions import TimeoutException
 
 from ParsePost import getTitle, getBody, getMindsTags, getMindsBody
 
-
 options = webdriver.ChromeOptions()
 options.binary_location = "/usr/bin/brave-browser"
 driver_path = '/usr/bin/brave-browser'
@@ -63,7 +62,7 @@ def minds():
         ).click()
     
     print(postTitle)
-    #postTitle.send_keys(title)
+    postTitle.send_keys(title) 
 
    
 

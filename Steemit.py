@@ -17,13 +17,12 @@ driver = webdriver.Chrome('./chromedriver')
 
 with open('ids.json', 'r') as json_file:     #get credentials from json
     data = json.load(json_file)
+with open('postContent.json', 'r') as json_file:     #get post content
+    content = json.load(json_file)
 
-#Pour utiliser Brave.
-#driver = webdriver.Chrome(executable_path ='C:/Program Files (x86)/BraveSoftware/Brave-Browser/Application/brave.exe')
-title = getTitle()
-body = getBody()
-tags = getHashtags()
-videoDesc = getVideoDesc()
+title = (content['steemit']['title'])
+tags = (content['steemit']['tags'])
+body = (content['steemit']['body'])
 
 videoUrl = 'https://www.youtube.com/'
 

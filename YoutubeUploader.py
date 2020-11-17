@@ -20,8 +20,8 @@ scopes = ["https://www.googleapis.com/auth/youtube.upload"]
 videoMedia = './testVidUpload.mp4'
 thumbnail = './16_Forest.jpg'
 
-with open('postContent.json', 'r') as json_file:     #get credentials from json
-    data = json.load(json_file)
+with open('postContent.json', 'r') as json_file:     #get post content
+    content = json.load(json_file)
 
 def main():
     # Disable OAuthlib's HTTPS verification when running locally.
@@ -44,9 +44,9 @@ def main():
         body={
           "snippet": {
             "categoryId": "1",
-            "description":(data['Youtube']['body']),
-            "tags": (data['Youtube']['tags']),
-            "title":(data['GENERAL']['title'])
+            "description":(content['Youtube']['body']),
+            "tags": (content['Youtube']['tags']),
+            "title":(content['GENERAL']['title'])
             #"thumbnails": thumbnail
           },
           "status": {

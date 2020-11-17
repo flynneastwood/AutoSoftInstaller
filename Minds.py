@@ -18,11 +18,13 @@ driver = webdriver.Chrome('./chromedriver')
 
 with open('ids.json', 'r') as json_file:     #get credentials from json
     data = json.load(json_file)
+with open('postContent.json', 'r') as json_file:     #get post content
+    content = json.load(json_file)
 
-title = getTitle()
-body = getBody()
-tags = getMindsTags()
-mindsBody = getMindsBody()
+title = (content['GENERAL']['title'])
+tags = (content['minds']['tags'])
+body = (content['GENERAL']['body'])
+mindsBody = (content['minds']['body'])
 
 thumbnail = './thumbnail.jpg'
 
@@ -81,7 +83,7 @@ def minds():
 
     #postBody.send_keys(Keys.RETURN) #Jump a line in blog text
 
-    #postBody.send_keys(mindsBody)
+    #postBody.send_keys(body)
 
     #postBody.send_keys(Keys.RETURN) #Jump a line in blog text
 

@@ -17,8 +17,8 @@ from googleapiclient.http import MediaFileUpload
 
 scopes = ["https://www.googleapis.com/auth/youtube.upload"]
 
-videoMedia = './testVidUpload.mp4'
-thumbnail = './16_Forest.jpg'
+videoMedia = './content/testVidUpload.mp4'
+thumbnail = './content/16_Forest.jpg'
 
 with open('postContent.json', 'r') as json_file:     #get post content
     content = json.load(json_file)
@@ -30,7 +30,7 @@ def main():
 
     api_service_name = "youtube"
     api_version = "v3"
-    client_secrets_file = "./code_secret_client_340838595868-52kvrrdcuqh2n88tdjr1g3rnpigdumfk.apps.googleusercontent.com.json"
+    client_secrets_file = "./code_secret_client_340838595868-vfhl0v7fqlvtqqi13fcbn4ovre4rrpot.apps.googleusercontent.com.json"
 
     # Get credentials and create an API client
     flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(

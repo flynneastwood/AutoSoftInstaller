@@ -18,19 +18,19 @@ with open('postContent.json', 'r') as json_file:     #get post content
 
 title = (content['GENERAL']['title'])
 body = (content['GENERAL']['body'])
-artstationBody = (content['artstation']['body'])
-tags = (content['artstation']['tags'])
+blenderartistsBody = (content['blenderartists']['body'])
+tags = (content['blenderartists']['tags'])
 
 thumbnail = '/home/tony/LazyPost/content/16_Forest.jpg'
 
-def artstation():
+def blenderartists():
 
-		driver.get("https://www.artstation.com")
+		driver.get("https://blenderartists.org")
 
 		
 		driver.implicitly_wait(7)                                                   #We find the login page and the text input.
 		usernameElem = driver.find_element_by_xpath(
-			"/html/body/div[1]/nav/ul/li[7]/a/span"
+			"/html/body/section/div/div[1]/header/div/div/div[2]/span/button[2]"
 			).click()
 
 		driver.implicitly_wait(7) #Wait to load the page                             #Username input.
@@ -95,7 +95,7 @@ def artstation():
 	   
 		return True
 
-artstation()
+blenderartists()
 
 #driver.close()
 

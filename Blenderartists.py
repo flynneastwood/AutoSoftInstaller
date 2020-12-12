@@ -35,26 +35,28 @@ def blenderartists():
 
 		driver.implicitly_wait(7) #Wait to load the page                             #Username input.
 		usernameElem = driver.find_element_by_xpath(
-			"/html/body/div[1]/div[2]/div/div/div[2]/form/div[1]/input"
-			).send_keys(data['artstation']['username'])
+			"/html/body/section/div/div[4]/div/div/div/div[3]/div[1]/form/div[1]/table/tbody/tr[1]/td[2]/input"
+			).send_keys(data['blenderartists']['username'])
 		
 		passwordElem = driver.find_element_by_xpath(                                 #Password input.
-			'/html/body/div[1]/div[2]/div/div/div[2]/form/div[2]/input'
-			).send_keys(data['artstation']['password'], Keys.RETURN)
+			'/html/body/section/div/div[4]/div/div/div/div[3]/div[1]/form/div[1]/table/tbody/tr[2]/td[2]/input'
+			).send_keys(data['blenderartists']['password'], Keys.RETURN)
 
 
 		# Finding upload new art button
 		
 		wait = WebDriverWait(driver, 20)
 
-																						 
-		postMenu = wait.until(EC.visibility_of_element_located((By.XPATH,             
-			"/html/body/div[2]/nav/ul/li[4]/a"
+		
+
+		FinishedArtworks = wait.until(EC.visibility_of_element_located((By.XPATH,             
+			"/html/body/section/div/div[2]/div[5]/div[2]/div/div/div/div/div[1]/table/tbody/tr[1]/td[1]/div/span[1]/a/span[2]"
 			))).click() 
 
-		postButton = wait.until(EC.visibility_of_element_located((By.XPATH,         
-			"/html/body/div[2]/nav/ul/li[4]/ul/li[1]/a"
-			))).click()                                                           
+
+		clickNewTopic = wait.until(EC.visibility_of_element_located((By.XPATH,             
+			"/html/body/section/div/div[2]/div[3]/div/section/button/span"
+			))).click()                                                          
 		   
 		driver.implicitly_wait(5) 
 
@@ -62,7 +64,7 @@ def blenderartists():
 		#input the post, otherwise, it all goes in the title for some reasons.
 		
 		blogTitle = wait.until(EC.visibility_of_element_located((By.XPATH, 
-			"/html/body/div[4]/app-root/app-layout/ng-component/project-form/form/div/div[1]/div[1]/fieldset/form-input/div/input"
+			"/html/body/section/div/div[6]/div[3]/div[1]/div[2]/div[1]/input"
 			))).send_keys(title + " - Blender 3D")
 
 		#uploadContent = wait.until(EC.visibility_of_element_located((By.XPATH, 

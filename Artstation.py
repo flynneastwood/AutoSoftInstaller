@@ -28,7 +28,7 @@ def artstation():
 		driver.get("https://www.artstation.com")
 
 		
-		driver.implicitly_wait(7)                                                   #We find the login page and the text input.
+		driver.implicitly_wait(7)                                                     #We find the login page and the text input.
 		usernameElem = driver.find_element_by_xpath(
 			"/html/body/div[1]/nav/ul/li[7]/a/span"
 			).click()
